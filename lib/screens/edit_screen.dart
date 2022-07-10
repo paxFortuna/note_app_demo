@@ -1,10 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:note_app_sqlite/components/note_form_widget.dart';
 import 'package:note_app_sqlite/database/note_db_helper.dart';
 import 'package:note_app_sqlite/models/note.dart';
-import 'package:note_app_sqlite/screens/note_screen..dart';
 
 class EditNoteScreen extends StatefulWidget {
   const EditNoteScreen({Key? key, this.note}) : super(key: key);
