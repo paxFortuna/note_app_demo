@@ -47,11 +47,13 @@ class _NoteScreenState extends State<NoteScreen> {
           centerTitle: true,
           flexibleSpace: const FlexibleSpaceBar(
             title: Text('Reminder'),
+            // background:
+            //     Image.asset("assets/images/wheel.png", fit: BoxFit.fill),
           ),
           actions: [
             IconButton(
               icon: const Icon(Icons.edit_outlined),
-              tooltip: '입력',
+              tooltip: '입력하세요',
               onPressed: () async {
                 await Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => const EditNoteScreen()));
