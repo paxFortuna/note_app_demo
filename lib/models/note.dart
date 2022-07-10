@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 const String tableNotes = 'notes';
 
 class NoteFields {
