@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:note_app_sqlite/components/note_form_widget.dart';
 import 'package:note_app_sqlite/database/note_db_helper.dart';
 import 'package:note_app_sqlite/models/note.dart';
+import 'package:note_app_sqlite/screens/note_screen..dart';
 
 class EditNoteScreen extends StatefulWidget {
   const EditNoteScreen({Key? key, this.note}) : super(key: key);
@@ -26,7 +29,6 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
     title = widget.note?.title ?? "";
     description = widget.note?.description ?? "";
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,6 +98,7 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
       description: description,
     );
     await NotesDatabase.instance.update(note);
+    // await NotesDatabase.instance.readAllNotes();
   }
 
   Future addNote() async {
@@ -107,4 +110,5 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
     createdTime: DateTime.now(),
   );
   await NotesDatabase.instance.create(note);
+  // await NotesDatabase.instance.readAllNotes();
 }}

@@ -23,12 +23,6 @@ class _NoteScreenState extends State<NoteScreen> {
     refreshNotes();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    NotesDatabase.instance.close();
-  }
-
   Future refreshNotes() async {
     setState(() => isLoading = true);
     notes = await NotesDatabase.instance.readAllNotes();
@@ -145,4 +139,11 @@ class _NoteScreenState extends State<NoteScreen> {
 //         );
 //       },
 //     );
+
+
+// @override
+// void dispose() {
+//   super.dispose();
+//   NotesDatabase.instance.close();
+// }
 }
