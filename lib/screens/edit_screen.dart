@@ -61,13 +61,16 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
   Widget buildButton() {
     final isFormValid = title.isNotEmpty && description.isNotEmpty;
 
-    return ElevatedButton(
-      onPressed: addOrUpdateNote,
-      style: ElevatedButton.styleFrom(
-        onPrimary: Colors.white,
-        primary: isFormValid ? null : Colors.grey.shade700,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      child: ElevatedButton(
+        onPressed: addOrUpdateNote,
+        style: ElevatedButton.styleFrom(
+          onPrimary: Colors.white,
+          primary: isFormValid ? null : Colors.grey.shade700,
+        ),
+        child: const Text('저장'),
       ),
-      child: const Text('저장'),
     );
   }
 

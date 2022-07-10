@@ -43,39 +43,36 @@ class _NoteScreenState extends State<NoteScreen> {
           "Note App with SQLite",
           style: TextStyle(fontSize: 25),
         ),
+        centerTitle: true,
         actions: const [
           SizedBox(width: 12),
           Icon(Icons.search),
         ],
       ),
       body: Center(
-        child: isLoading
-            ? const CircularProgressIndicator()
-            : notes.isEmpty
-                ? const Text(
-                    '내용이 없습니다',
-                    style: TextStyle(color: Colors.white, fontSize: 25))
-                : buildNotes(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black,
-        child: const Icon(Icons.add),
-        onPressed: () async {
-          await Navigator.of(context)
-              .push(MaterialPageRoute(builder: (_) => const EditNoteScreen()));
-        },
-      ),
+          child: isLoading
+              ? const CircularProgressIndicator()
+              : notes.isEmpty
+              ? const Text(
+              '내용이 없습니다',
+              style: TextStyle(color: Colors.white, fontSize: 25))
+              : buildNotes(),
+    ),
+    floatingActionButton: FloatingActionButton(
+    backgroundColor: Colors.black,
+    child: const Icon(Icons.add),
+    onPressed: () async {
+    await Navigator.of(context)
+        .push(MaterialPageRoute(builder: (_) => const EditNoteScreen()));
+    },
+    )
+    ,
     );
   }
 
-  Widget buildNotes() => GridView.builder(
+  Widget buildNotes() =>
+      ListView.builder(
         itemCount: notes.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 2.0,
-          mainAxisSpacing: 2.0,
-          childAspectRatio: 1/2,
-        ),
         itemBuilder: (context, index) {
           final note = notes[index];
           return GestureDetector(
@@ -89,4 +86,26 @@ class _NoteScreenState extends State<NoteScreen> {
           );
         },
       );
+
+// Widget buildNotes() => GridView.builder(
+//       itemCount: notes.length,
+//       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//         crossAxisCount: 2,
+//         crossAxisSpacing: 2.0,
+//         mainAxisSpacing: 2.0,
+//         childAspectRatio: 1/2,
+//       ),
+//       itemBuilder: (context, index) {
+//         final note = notes[index];
+//         return GestureDetector(
+//           onTap: () async {
+//             await Navigator.of(context).push(MaterialPageRoute(
+//               builder: (_) => NoteDetailScreen(noteId: note.id!),
+//             ));
+//             refreshNotes();
+//           },
+//           child: NoteCardWidget(note: note, index: index),
+//         );
+//       },
+//     );
 }
