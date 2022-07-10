@@ -38,77 +38,89 @@ class _NoteScreenState extends State<NoteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Note App with SQLite",
-          style: TextStyle(fontSize: 25),
+        body: CustomScrollView(
+      primary: true,
+      slivers: [
+        SliverAppBar(
+          pinned: true,
+          expandedHeight: 100,
+          centerTitle: true,
+          flexibleSpace: const FlexibleSpaceBar(
+            title: Text('Reminder'),
+          ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.edit_outlined),
+              tooltip: '입력',
+              onPressed: () async {
+                await Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const EditNoteScreen()));
+              },
+            ),
+            const SizedBox(width: 10),
+          ],
         ),
-        centerTitle: true,
-        actions: const [
-          SizedBox(width: 12),
-          Icon(Icons.search),
-        ],
-      ),
-      body: Center(
+        SliverFillRemaining(
           child: isLoading
-              ? const CircularProgressIndicator()
+              ? const Center(child: CircularProgressIndicator())
               : notes.isEmpty
-              ? const Text(
-              '내용이 없습니다',
-              style: TextStyle(color: Colors.white, fontSize: 25))
-              : buildNotes(),
-    ),
-    floatingActionButton: FloatingActionButton(
-    backgroundColor: Colors.black,
-    child: const Icon(Icons.add),
-    onPressed: () async {
-    await Navigator.of(context)
-        .push(MaterialPageRoute(builder: (_) => const EditNoteScreen()));
-    },
-    )
-    ,
-    );
+                  ? const Text('내용이 없습니다',
+                      style: TextStyle(color: Colors.white, fontSize: 25))
+                  : buildNotes(),
+        ),
+      ],
+    ));
+
+    // floatingActionButton: FloatingActionButton(
+    // backgroundColor: Colors.black,
+    // child: const Icon(Icons.add),
+    // onPressed: () async {
+    // await Navigator.of(context)
+    //     .push(MaterialPageRoute(builder: (_) => const EditNoteScreen()));
+    // },),
+    // );
   }
+
   // StaggeredGridView version down ^0.4.0 : error 제거
   Widget buildNotes() => StaggeredGridView.countBuilder(
-    padding: const EdgeInsets.all(8),
-    physics: const NeverScrollableScrollPhysics(),
-    itemCount: notes.length,
-    staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
-    crossAxisCount: 4,
-    mainAxisSpacing: 4,
-    crossAxisSpacing: 4,
-    itemBuilder: (context, index) {
-      final note = notes[index];
-      return GestureDetector(
-        onTap: () async {
-          await Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => NoteDetailScreen(noteId: note.id!),
-          ));
+        padding: const EdgeInsets.all(8),
+        // physics: const NeverScrollableScrollPhysics(),
+        itemCount: notes.length,
+        staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
+        crossAxisCount: 4,
+        mainAxisSpacing: 4,
+        crossAxisSpacing: 4,
+        itemBuilder: (context, index) {
+          final note = notes[index];
+          return GestureDetector(
+            onTap: () async {
+              await Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => NoteDetailScreen(noteId: note.id!),
+              ));
 
-          refreshNotes();
+              refreshNotes();
+            },
+            child: NoteCardWidget(note: note, index: index),
+          );
         },
-        child: NoteCardWidget(note: note, index: index),
       );
-    },
-  );
 
-  // Widget buildNotes() =>
-  //     ListView.builder(
-  //       itemCount: notes.length,
-  //       itemBuilder: (context, index) {
-  //         final note = notes[index];
-  //         return GestureDetector(
-  //           onTap: () async {
-  //             await Navigator.of(context).push(MaterialPageRoute(
-  //               builder: (_) => NoteDetailScreen(noteId: note.id!),
-  //             ));
-  //             refreshNotes();
-  //           },
-  //           child: NoteCardWidget(note: note, index: index),
-  //         );
-  //       },
-  //     );
+// Widget buildNotes() =>
+//     ListView.builder(
+//       itemCount: notes.length,
+//       itemBuilder: (context, index) {
+//         final note = notes[index];
+//         return GestureDetector(
+//           onTap: () async {
+//             await Navigator.of(context).push(MaterialPageRoute(
+//               builder: (_) => NoteDetailScreen(noteId: note.id!),
+//             ));
+//             refreshNotes();
+//           },
+//           child: NoteCardWidget(note: note, index: index),
+//         );
+//       },
+//     );
 
 // Widget buildNotes() => GridView.builder(
 //       itemCount: notes.length,
