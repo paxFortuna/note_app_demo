@@ -7,7 +7,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  static const String title = "Note App with SQLite";
+  static const String title = "Note App";
 
     @override
   Widget build(BuildContext context) {
