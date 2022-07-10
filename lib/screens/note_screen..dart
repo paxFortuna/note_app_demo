@@ -69,23 +69,46 @@ class _NoteScreenState extends State<NoteScreen> {
     ,
     );
   }
+  // StaggeredGridView version down ^0.4.0 : error 제거
+  Widget buildNotes() => StaggeredGridView.countBuilder(
+    padding: const EdgeInsets.all(8),
+    physics: const NeverScrollableScrollPhysics(),
+    itemCount: notes.length,
+    staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
+    crossAxisCount: 4,
+    mainAxisSpacing: 4,
+    crossAxisSpacing: 4,
+    itemBuilder: (context, index) {
+      final note = notes[index];
+      return GestureDetector(
+        onTap: () async {
+          await Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => NoteDetailScreen(noteId: note.id!),
+          ));
 
-  Widget buildNotes() =>
-      ListView.builder(
-        itemCount: notes.length,
-        itemBuilder: (context, index) {
-          final note = notes[index];
-          return GestureDetector(
-            onTap: () async {
-              await Navigator.of(context).push(MaterialPageRoute(
-                builder: (_) => NoteDetailScreen(noteId: note.id!),
-              ));
-              refreshNotes();
-            },
-            child: NoteCardWidget(note: note, index: index),
-          );
+          refreshNotes();
         },
+        child: NoteCardWidget(note: note, index: index),
       );
+    },
+  );
+
+  // Widget buildNotes() =>
+  //     ListView.builder(
+  //       itemCount: notes.length,
+  //       itemBuilder: (context, index) {
+  //         final note = notes[index];
+  //         return GestureDetector(
+  //           onTap: () async {
+  //             await Navigator.of(context).push(MaterialPageRoute(
+  //               builder: (_) => NoteDetailScreen(noteId: note.id!),
+  //             ));
+  //             refreshNotes();
+  //           },
+  //           child: NoteCardWidget(note: note, index: index),
+  //         );
+  //       },
+  //     );
 
 // Widget buildNotes() => GridView.builder(
 //       itemCount: notes.length,

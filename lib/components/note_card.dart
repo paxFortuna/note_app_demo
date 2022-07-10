@@ -3,10 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:note_app_sqlite/models/note.dart';
 
 final _lightColors = [
-  Colors.white60,
+  Colors.redAccent[100],
   Colors.lightGreen,
   Colors.amber,
-  Colors.white24,
+  Colors.white70,
   Colors.lightBlue,
 ];
 
@@ -24,7 +24,7 @@ class NoteCardWidget extends StatelessWidget {
     return Card(
       color: color,
       child: Container(
-        constraints: BoxConstraints(maxHeight: minHeight),
+        constraints: BoxConstraints(minHeight: minHeight),
         padding: const EdgeInsets.all(8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
