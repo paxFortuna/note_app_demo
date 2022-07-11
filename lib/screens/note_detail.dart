@@ -15,6 +15,7 @@ class NoteDetailScreen extends StatefulWidget {
 class _NoteDetailScreenState extends State<NoteDetailScreen> {
   late Note note;
   bool isLoading = false;
+  int number=0;
 
   @override
   void initState() {
@@ -37,31 +38,59 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : Padding(
-            padding: const EdgeInsets.all(12),
-            child: ListView(
-                padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.all(12),
+        child: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          children: [
+            Container(
+              child: Row(
                 children: [
-                  Text(
-                    note.title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
+                  Switch(
+                      value: note.isImportant ?? false,
+                      onChanged: (bool isImportant) {
+            setState(() => isImportant = note.isImportant);
+            },),
+                  Expanded(
+                    child: Slider(
+                      value: (note.number ?? 0).toDouble(),
+                      min: 0,
+                      max: 5,
+                      divisions: 5,
+                      onChanged: (double value) {
+                        setState(() => number = value.toInt());
+                      },
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    DateFormat.yMMMd().format(note.createdTime),
-                    style: const TextStyle(color: Colors.white38),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    note.description,
-                    style: const TextStyle(color: Colors.white70, fontSize: 18),
                   ),
                 ],
               ),
-          ),
+            ),
+            const SizedBox(height: 20),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  note.title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),const SizedBox(height: 8),
+                Text(
+                  DateFormat.yMMMd().format(note.createdTime),
+                  style: const TextStyle(color: Colors.white38),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  note.description,
+                  style: const TextStyle(color: Colors.white70, fontSize: 18),
+                ),
+              ],
+            ),
+            const SizedBox(width: 20),
+          ],
+        ),
+      ),
     );
   }
 
@@ -84,5 +113,30 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
           Navigator.of(context).pop();
         },
         icon: const Icon(Icons.delete));
+    // showAlertDialog(context);
   }
+  // void showAlertDialog(BuildContext context) async {
+  //   AlertDialog(
+  //     title: const Text('삭제 경고'),
+  //     content: const Text("정말 삭제하시겠습니까?"),
+  //     actions: [
+  //       ElevatedButton(
+  //         onPressed: () async {
+  //           await NotesDatabase.instance.delete(widget.noteId);
+  //           if (!mounted) return;
+  //           Navigator.of(context).pop("삭제");
+  //         },
+  //         child: const Text("삭제"),),
+  //
+  //       ElevatedButton(
+  //         onPressed: () async {
+  //           await NotesDatabase.instance.delete(widget.noteId);
+  //           if (!mounted) return;
+  //           Navigator.pop(context, "취소");
+  //         },
+  //         child: const Text("취소"),),
+  //     ],
+  //   );
+
 }
+

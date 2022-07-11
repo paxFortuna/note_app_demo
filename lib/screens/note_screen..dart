@@ -141,9 +141,9 @@ class _NoteScreenState extends State<NoteScreen> {
 //     );
 
 
-// @override
-// void dispose() {
-//   super.dispose();
-//   NotesDatabase.instance.close();
-// }
+  @override
+  void dispose() {
+    super.dispose();
+    NotesDatabase.instance.close();
+  }
 }
