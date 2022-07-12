@@ -57,35 +57,41 @@ class NoteFormWidget extends StatelessWidget {
   }
 
   Widget buildTitle() {
-    return TextFormField(
-      maxLines: 1,
-      initialValue: title,
-      style: const TextStyle(
-        color: Colors.white70,
-        fontWeight: FontWeight.bold,
-        fontSize: 25,
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: TextFormField(
+        maxLines: 1,
+        initialValue: title,
+        style: const TextStyle(
+          color: Colors.white70,
+          fontWeight: FontWeight.bold,
+          fontSize: 25,
+        ),
+        decoration: const InputDecoration(
+          border: InputBorder.none,
+          hintText: "제목을 입력하세요",
+          hintStyle: TextStyle(color: Colors.white24),
+        ),
+        validator: (title) => title != null && title.isEmpty ? "제목이 없습니다." : null,
+        onChanged: onChangedTitle,
       ),
-      decoration: const InputDecoration(
-        border: InputBorder.none,
-        hintText: "제목",
-        hintStyle: TextStyle(color: Colors.white70),
-      ),
-      validator: (title) => title != null && title.isEmpty ? "제목이 없습니다." : null,
-      onChanged: onChangedTitle,
     );
   }
 
-  Widget buildDescription() => TextFormField(
-    maxLines: 5,
-    initialValue: description,
-    style: const TextStyle(color: Colors.white60, fontSize: 18),
-    decoration: const InputDecoration(
-      border: InputBorder.none,
-      hintText: "내용",
-      hintStyle: TextStyle(color: Colors.white60),
+  Widget buildDescription() => Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: TextFormField(
+      maxLines: 5,
+      initialValue: description,
+      style: const TextStyle(color: Colors.white24, fontSize: 18),
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+        hintText: "내용을 입력하세요",
+        hintStyle: TextStyle(color: Colors.white24),
+      ),
+      validator: (title) => title != null && title.isEmpty ? "내용이 없습니다" : null,
+      onChanged: onChangedDescription,
     ),
-    validator: (title) => title != null && title.isEmpty ? "내용이 없습니다" : null,
-    onChanged: onChangedDescription,
   );
 
 }

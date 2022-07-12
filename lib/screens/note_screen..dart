@@ -47,7 +47,7 @@ class _NoteScreenState extends State<NoteScreen> {
           actions: [
             IconButton(
               icon: const Icon(Icons.edit_outlined),
-              tooltip: '입력하세요',
+              tooltip: '입력',
               onPressed: () async {
                 await Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => const EditNoteScreen()));
@@ -65,22 +65,13 @@ class _NoteScreenState extends State<NoteScreen> {
                   : buildNotes(),
         ),
       ],
-    ));
-
-    // floatingActionButton: FloatingActionButton(
-    // backgroundColor: Colors.black,
-    // child: const Icon(Icons.add),
-    // onPressed: () async {
-    // await Navigator.of(context)
-    //     .push(MaterialPageRoute(builder: (_) => const EditNoteScreen()));
-    // },),
-    // );
-  }
+    ));  }
 
   // StaggeredGridView version down ^0.4.0 : error 제거
   Widget buildNotes() => StaggeredGridView.countBuilder(
         padding: const EdgeInsets.all(8),
         // physics: const NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.vertical,
         itemCount: notes.length,
         staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
         crossAxisCount: 4,

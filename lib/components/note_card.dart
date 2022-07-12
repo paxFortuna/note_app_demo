@@ -33,13 +33,17 @@ class NoteCardWidget extends StatelessWidget {
             Text(
               time,
               style: const TextStyle(
-                  color: Colors.black38, fontSize: 20, fontWeight: FontWeight.bold),
+                color: Colors.black38,
+                fontSize: 15,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
               note.title,
               style: const TextStyle(
-                  color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
             )
           ],
         ),
@@ -48,7 +52,7 @@ class NoteCardWidget extends StatelessWidget {
   }
 
   double getMinHeight(int index) {
-    switch(index % 4) {
+    switch (index % 4) {
       case 0:
         return 100;
       case 1:

@@ -46,13 +46,13 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
               child: Row(
                 children: [
                   Switch(
-                      value: note.isImportant ?? false,
+                      value: note.isImportant,
                       onChanged: (bool isImportant) {
             setState(() => isImportant = note.isImportant);
             },),
                   Expanded(
                     child: Slider(
-                      value: (note.number ?? 0).toDouble(),
+                      value: (note.number).toDouble(),
                       min: 0,
                       max: 5,
                       divisions: 5,
